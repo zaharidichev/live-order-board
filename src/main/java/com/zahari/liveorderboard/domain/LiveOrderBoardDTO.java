@@ -7,22 +7,22 @@ import java.util.List;
  */
 public class LiveOrderBoardDTO {
 
-    private List<PriceLevelDTO> bids;
-    private List<PriceLevelDTO> asks;
+    private List<PriceLevelDTO> sellOrders;
+    private List<PriceLevelDTO> buyOrders;
 
     public LiveOrderBoardDTO() {
     }
 
-    public LiveOrderBoardDTO(List<PriceLevelDTO> bids, List<PriceLevelDTO> asks) {
-        this.bids = bids;
-        this.asks = asks;
+    public LiveOrderBoardDTO(List<PriceLevelDTO> sellOrders, List<PriceLevelDTO> buyOrders) {
+        this.sellOrders = sellOrders;
+        this.buyOrders = buyOrders;
     }
 
-    public List<PriceLevelDTO> getBids() {
-        return bids;
+    public List<PriceLevelDTO> getSellOrders() {
+        return sellOrders;
     }
 
-    public List<PriceLevelDTO> getAsks() {
-        return asks;
+    public List<PriceLevelDTO> getBuyOrders() {
+        return buyOrders;
     }
 }
