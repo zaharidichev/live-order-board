@@ -1,5 +1,8 @@
 package com.zahari.liveorderboard.error;
 
+import com.zahari.liveorderboard.error.exception.LiveOrderBookServiceException;
+import com.zahari.liveorderboard.error.exception.OrderNotFoundException;
+import com.zahari.liveorderboard.error.exception.ValidationException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;

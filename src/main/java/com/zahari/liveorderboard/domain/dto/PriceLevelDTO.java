@@ -3,6 +3,11 @@ package com.zahari.liveorderboard.domain.dto;
 import java.util.Set;
 
 /**
+ *
+ * A price level is the result of one or more orders of the same price
+ * that have the same market side. The quantity is a sum of all the orders.
+ * In order to be able to look at individual orders, a set of the Ids is provided.
+ *
  * Created by zahari on 26/03/2017.
  */
 public class PriceLevelDTO {

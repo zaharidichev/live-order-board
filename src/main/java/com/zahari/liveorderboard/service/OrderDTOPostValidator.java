@@ -1,9 +1,12 @@
 package com.zahari.liveorderboard.service;
 
 import com.zahari.liveorderboard.domain.dto.OrderDTO;
-import com.zahari.liveorderboard.error.ValidationException;
+import com.zahari.liveorderboard.error.exception.ValidationException;
 
 /**
+ *
+ * Used to validate the input of the user when placing an order
+ *
  * Created by zahari on 26/03/2017.
  */
 public class OrderDTOPostValidator {
@@ -12,7 +15,7 @@ public class OrderDTOPostValidator {
             throw new ValidationException("Cannot create an order with negative price");
         }
 
-        if(dto.getPricePerKg() < 0.001) {
+        if(dto.getQuantityInKg() < 0.001) {
             throw new ValidationException("Cannot create an order with size less than 0.001");
         }
 

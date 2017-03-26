@@ -3,7 +3,7 @@ package com.zahari.liveorderboard.service;
 import com.zahari.liveorderboard.domain.dto.MarketSide;
 import com.zahari.liveorderboard.domain.dto.OrderDTO;
 import com.zahari.liveorderboard.domain.entity.OrderEntity;
-import com.zahari.liveorderboard.error.OrderNotFoundException;
+import com.zahari.liveorderboard.error.exception.OrderNotFoundException;
 import com.zahari.liveorderboard.mapper.DomainMapper;
 import com.zahari.liveorderboard.repository.OrderEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;

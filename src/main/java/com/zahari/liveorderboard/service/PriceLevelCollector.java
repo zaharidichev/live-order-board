@@ -2,7 +2,7 @@ package com.zahari.liveorderboard.service;
 
 import com.zahari.liveorderboard.domain.dto.OrderDTO;
 import com.zahari.liveorderboard.domain.dto.PriceLevelDTO;
-import com.zahari.liveorderboard.error.LiveOrderBookServiceException;
+import com.zahari.liveorderboard.error.exception.LiveOrderBookServiceException;
 
 import java.util.*;
 import java.util.function.BiConsumer;
