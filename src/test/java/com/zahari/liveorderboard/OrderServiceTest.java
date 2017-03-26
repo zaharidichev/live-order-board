@@ -63,6 +63,18 @@ public class OrderServiceTest {
         assertTrue(foundOrder.getOrderId() != null);
     }
 
+    @Test
+    public void shouldBeAbleToCancel() {
+        OrderDTO orderToCreate = new OrderDTO(null,"dummyUserId",1.1,2.5, MarketSide.BUY);
+        String createdOrderId = this.orderService.createOrder(orderToCreate).getOrderId();
+        assertTrue(this.orderService.getAllOrders().count() == 1);
+        this.orderService.cancelOrder(createdOrderId);
+        assertTrue(this.orderService.getAllOrders().count() == 0);
+
+    }
+
+
+
 
     @Test
     public void shouldBeAbleToFindByBuySide() {

@@ -38,6 +38,7 @@ public class OrderService implements IOrderService{
         if(!this.repo.exists(orderId)) {
             throw new OrderNotFoundException("Cannot cancel an order with id " + orderId + " as it does not exist");
         }
+        this.repo.delete(orderId);
     }
 
     @Override
