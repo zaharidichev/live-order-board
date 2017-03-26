@@ -41,4 +41,29 @@ public class OrderDTO {
     public MarketSide getSide() {
         return side;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OrderDTO orderDTO = (OrderDTO) o;
+
+        if (orderId != null ? !orderId.equals(orderDTO.orderId) : orderDTO.orderId != null) return false;
+        if (userId != null ? !userId.equals(orderDTO.userId) : orderDTO.userId != null) return false;
+        if (quantityInKg != null ? !quantityInKg.equals(orderDTO.quantityInKg) : orderDTO.quantityInKg != null)
+            return false;
+        if (pricePerKg != null ? !pricePerKg.equals(orderDTO.pricePerKg) : orderDTO.pricePerKg != null) return false;
+        return side == orderDTO.side;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = orderId != null ? orderId.hashCode() : 0;
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        result = 31 * result + (quantityInKg != null ? quantityInKg.hashCode() : 0);
+        result = 31 * result + (pricePerKg != null ? pricePerKg.hashCode() : 0);
+        result = 31 * result + (side != null ? side.hashCode() : 0);
+        return result;
+    }
 }

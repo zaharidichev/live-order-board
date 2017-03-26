@@ -1,12 +1,19 @@
 package com.zahari.liveorderboard.service;
 
+import com.zahari.liveorderboard.domain.MarketSide;
 import com.zahari.liveorderboard.domain.OrderDTO;
+import com.zahari.liveorderboard.domain.entity.OrderEntity;
+import com.zahari.liveorderboard.error.OrderNotFoundException;
+import com.zahari.liveorderboard.mapper.DomainMapper;
 import com.zahari.liveorderboard.repository.OrderEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.stream.Stream;
+
+import static com.zahari.liveorderboard.mapper.DomainMapper.fromEntity;
+import static com.zahari.liveorderboard.mapper.DomainMapper.toEntity;
 
 /**
  * Created by zahari on 26/03/2017.
@@ -23,32 +30,36 @@ public class OrderService implements IOrderService{
 
     @Override
     public OrderDTO createOrder(OrderDTO order) {
-        throw new NotImplementedException();
+        OrderEntity created = this.repo.save(toEntity(order));
+        return fromEntity(created);
     }
 
     @Override
     public void cancelOrder(String orderId) {
-        throw new NotImplementedException();
-
+        if(!this.repo.exists(orderId)) {
+            throw new OrderNotFoundException("Cannot cancel an order with id " + orderId + " as it does not exist");
+        }
     }
 
     @Override
     public OrderDTO getOrder(String orderId) {
-        throw new NotImplementedException();
+        return this.repo.findByOrderId(orderId).map(DomainMapper::fromEntity).orElseThrow(
+                () -> new OrderNotFoundException("Cannot obtain an order with id " + orderId + " as it does not exist")
+        );
     }
 
     @Override
     public Stream<OrderDTO> getAllOrders() {
-        throw new NotImplementedException();
+        return this.repo.findAllOrders().map(DomainMapper::fromEntity);
     }
 
     @Override
     public Stream<OrderDTO> getBuyOrders() {
-        throw new NotImplementedException();
+        return this.repo.findBySide(MarketSide.BUY).map(DomainMapper::fromEntity);
     }
 
     @Override
     public Stream<OrderDTO> getSellOrders() {
-        throw new NotImplementedException();
+        return this.repo.findBySide(MarketSide.SELL).map(DomainMapper::fromEntity);
     }
 }

@@ -74,6 +74,8 @@ public class OrderServiceTest {
 
         assertTrue(this.orderService.getBuyOrders().collect(toSet()).contains(createdBuyOrder));
         assertTrue(this.orderService.getBuyOrders().count() == 1);
+        assertTrue(this.orderService.getAllOrders().count() == 2);
+
     }
 
     @Test
@@ -84,8 +86,10 @@ public class OrderServiceTest {
         this.orderService.createOrder(buySideOrder);
         OrderDTO createdSellOrder = this.orderService.createOrder(sellSideOrder);
 
-        assertTrue(this.orderService.getBuyOrders().collect(toSet()).contains(createdSellOrder));
+        assertTrue(this.orderService.getSellOrders().collect(toSet()).contains(createdSellOrder));
         assertTrue(this.orderService.getSellOrders().count() == 1);
+        assertTrue(this.orderService.getAllOrders().count() == 2);
+
     }
 
     @Test(expected=OrderNotFoundException.class)
