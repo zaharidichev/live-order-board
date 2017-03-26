@@ -1,7 +1,7 @@
 package com.zahari.liveorderboard;
 
-import com.zahari.liveorderboard.domain.MarketSide;
-import com.zahari.liveorderboard.domain.OrderDTO;
+import com.zahari.liveorderboard.domain.dto.MarketSide;
+import com.zahari.liveorderboard.domain.dto.OrderDTO;
 import com.zahari.liveorderboard.error.OrderNotFoundException;
 import com.zahari.liveorderboard.repository.OrderEntityRepository;
 import com.zahari.liveorderboard.service.IOrderService;

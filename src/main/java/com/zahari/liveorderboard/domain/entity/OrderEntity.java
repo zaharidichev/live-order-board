@@ -1,6 +1,6 @@
 package com.zahari.liveorderboard.domain.entity;
 
-import com.zahari.liveorderboard.domain.MarketSide;
+import com.zahari.liveorderboard.domain.dto.MarketSide;
 import org.springframework.data.annotation.Id;
 
 /**

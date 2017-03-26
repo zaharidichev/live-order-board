@@ -1,11 +1,9 @@
 package com.zahari.liveorderboard.repository;
 
-import com.zahari.liveorderboard.domain.MarketSide;
-import com.zahari.liveorderboard.domain.OrderDTO;
+import com.zahari.liveorderboard.domain.dto.MarketSide;
 import com.zahari.liveorderboard.domain.entity.OrderEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 import java.util.stream.Stream;

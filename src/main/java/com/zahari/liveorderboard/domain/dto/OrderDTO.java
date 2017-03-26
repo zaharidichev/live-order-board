@@ -1,4 +1,4 @@
-package com.zahari.liveorderboard.domain;
+package com.zahari.liveorderboard.domain.dto;
 
 /**
  * Created by zahari on 26/03/2017.

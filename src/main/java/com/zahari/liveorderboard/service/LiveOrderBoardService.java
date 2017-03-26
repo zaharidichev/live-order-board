@@ -1,9 +1,16 @@
 package com.zahari.liveorderboard.service;
 
-import com.zahari.liveorderboard.domain.LiveOrderBoardDTO;
+import com.zahari.liveorderboard.domain.dto.LiveOrderBoardDTO;
+import com.zahari.liveorderboard.domain.dto.PriceLevelDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.Collections;
+import java.util.List;
+
+import static com.zahari.liveorderboard.service.PriceLevelCollectorFactory.toBuySideLevels;
+import static com.zahari.liveorderboard.service.PriceLevelCollectorFactory.toSellSideLevels;
 
 /**
  * Created by zahari on 26/03/2017.
@@ -20,6 +27,8 @@ public class LiveOrderBoardService implements ILiveOrderBoardService{
 
     @Override
     public LiveOrderBoardDTO getLiveOrderBoard() {
-        throw new NotImplementedException();
+        List<PriceLevelDTO> sellSideLevels = orderService.getSellOrders().collect(toSellSideLevels());
+        List<PriceLevelDTO> buySideLevels = orderService.getBuyOrders().collect(toBuySideLevels());
+        return new LiveOrderBoardDTO(sellSideLevels,buySideLevels);
     }
 }

@@ -1,6 +1,6 @@
 package com.zahari.liveorderboard.mapper;
 
-import com.zahari.liveorderboard.domain.OrderDTO;
+import com.zahari.liveorderboard.domain.dto.OrderDTO;
 import com.zahari.liveorderboard.domain.entity.OrderEntity;
 
 /**

@@ -1,6 +1,6 @@
 package com.zahari.liveorderboard.service;
 
-import com.zahari.liveorderboard.domain.OrderDTO;
+import com.zahari.liveorderboard.domain.dto.OrderDTO;
 
 import java.util.stream.Stream;
 

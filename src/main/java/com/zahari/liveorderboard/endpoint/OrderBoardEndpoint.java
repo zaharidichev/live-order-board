@@ -1,6 +1,6 @@
 package com.zahari.liveorderboard.endpoint;
 
-import com.zahari.liveorderboard.domain.LiveOrderBoardDTO;
+import com.zahari.liveorderboard.domain.dto.LiveOrderBoardDTO;
 import com.zahari.liveorderboard.service.ILiveOrderBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

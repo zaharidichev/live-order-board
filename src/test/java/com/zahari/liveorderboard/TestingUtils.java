@@ -1,6 +1,6 @@
 package com.zahari.liveorderboard;
 
-import com.zahari.liveorderboard.domain.PriceLevelDTO;
+import com.zahari.liveorderboard.domain.dto.PriceLevelDTO;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -13,11 +13,11 @@ import java.util.List;
 public class TestingUtils {
 
     public static Matcher<? super List<PriceLevelDTO>> sellOrdersInAscendingOrder() {
-        return isInDescendingOrdering(true);
+        return isInDescendingOrdering(false);
     }
 
     public static Matcher<? super List<PriceLevelDTO>> buyOrdersInDescendingOrder() {
-        return isInDescendingOrdering(false);
+        return isInDescendingOrdering(true);
     }
 
 

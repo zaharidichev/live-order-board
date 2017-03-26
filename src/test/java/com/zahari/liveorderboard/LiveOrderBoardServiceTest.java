@@ -1,16 +1,19 @@
 package com.zahari.liveorderboard;
 
-import com.zahari.liveorderboard.domain.LiveOrderBoardDTO;
-import com.zahari.liveorderboard.domain.MarketSide;
-import com.zahari.liveorderboard.domain.OrderDTO;
-import com.zahari.liveorderboard.domain.PriceLevelDTO;
+import com.zahari.liveorderboard.domain.dto.LiveOrderBoardDTO;
+import com.zahari.liveorderboard.domain.dto.MarketSide;
+import com.zahari.liveorderboard.domain.dto.OrderDTO;
+import com.zahari.liveorderboard.domain.dto.PriceLevelDTO;
 import com.zahari.liveorderboard.service.ILiveOrderBoardService;
 import com.zahari.liveorderboard.service.IOrderService;
 import com.zahari.liveorderboard.service.LiveOrderBoardService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
@@ -19,6 +22,7 @@ import java.util.stream.Stream;
 import static com.zahari.liveorderboard.TestingUtils.buyOrdersInDescendingOrder;
 import static com.zahari.liveorderboard.TestingUtils.sellOrdersInAscendingOrder;
 import static java.util.stream.Collectors.toMap;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
@@ -34,17 +38,48 @@ public class LiveOrderBoardServiceTest {
     @Before
     public void setup(){
 
-        Stream<OrderDTO> buyOrders = Stream.of(new OrderDTO("orderId1","dummyUserId",2.5,3.0, MarketSide.BUY),
+
+        List<OrderDTO> buyOrders = Arrays.asList(new OrderDTO("orderId1","dummyUserId",2.5,3.0, MarketSide.BUY),
                 new OrderDTO("orderId2","dummyUserId",5.0,3.0, MarketSide.BUY),
                 new OrderDTO("orderId3","dummyUserId",7.0,1.5, MarketSide.BUY));
 
-        Stream<OrderDTO> sellOrders = Stream.of(new OrderDTO("orderId4","dummyUserId",1.1,5.0, MarketSide.SELL),
+        List<OrderDTO> sellOrders = Arrays.asList(new OrderDTO("orderId4","dummyUserId",1.1,5.0, MarketSide.SELL),
                 new OrderDTO("orderId5","dummyUserId",10.5,5.0, MarketSide.SELL),
                 new OrderDTO("orderId6","dummyUserId",22.0,1.5, MarketSide.SELL));
 
-        orderServiceMock = Mockito.mock(IOrderService.class);
-        when(orderServiceMock.getBuyOrders()).thenReturn(buyOrders);
-        when(orderServiceMock.getSellOrders()).thenReturn(sellOrders);
+
+        this.orderServiceMock = new IOrderService() {
+            @Override
+            public OrderDTO createOrder(OrderDTO order) {
+                throw new NotImplementedException();
+            }
+
+            @Override
+            public void cancelOrder(String orderId) {
+                throw new NotImplementedException();
+            }
+
+            @Override
+            public OrderDTO getOrder(String orderId) {
+                throw new NotImplementedException();
+            }
+
+            @Override
+            public Stream<OrderDTO> getAllOrders() {
+                throw new NotImplementedException();
+            }
+
+            @Override
+            public Stream<OrderDTO> getBuyOrders() {
+                return buyOrders.stream();
+            }
+
+            @Override
+            public Stream<OrderDTO> getSellOrders() {
+                return sellOrders.stream();
+            }
+        };
+
     }
 
 
@@ -55,8 +90,10 @@ public class LiveOrderBoardServiceTest {
         when(emptyOrderServiceMock.getSellOrders()).thenReturn(Stream.empty());
 
         ILiveOrderBoardService orderBoardService = new LiveOrderBoardService(emptyOrderServiceMock);
-        assertTrue(orderBoardService.getLiveOrderBoard().getBuyOrders().isEmpty());
-        assertTrue(orderBoardService.getLiveOrderBoard().getSellOrders().isEmpty());
+
+        LiveOrderBoardDTO liveOrderBoardDTO = orderBoardService.getLiveOrderBoard();
+        assertTrue(liveOrderBoardDTO.getSellLevels().isEmpty());
+        assertTrue(liveOrderBoardDTO.getBuyLevels().isEmpty());
 
     }
 
@@ -65,7 +102,7 @@ public class LiveOrderBoardServiceTest {
         ILiveOrderBoardService orderBoardService = new LiveOrderBoardService(orderServiceMock);
         LiveOrderBoardDTO orderBoard  = orderBoardService.getLiveOrderBoard();
 
-        Map<Double,PriceLevelDTO> priceToPriceLevel = orderBoard.getBuyOrders().stream().collect(toMap(PriceLevelDTO::getPricePerKg, Function.identity()));
+        Map<Double,PriceLevelDTO> priceToPriceLevel = orderBoard.getBuyLevels().stream().collect(toMap(PriceLevelDTO::getPricePerKg, Function.identity()));
 
 
         PriceLevelDTO dtoForPriceOfThree = priceToPriceLevel.get(3.0);
@@ -106,7 +143,7 @@ public class LiveOrderBoardServiceTest {
         ILiveOrderBoardService orderBoardService = new LiveOrderBoardService(orderServiceMock);
         LiveOrderBoardDTO orderBoard  = orderBoardService.getLiveOrderBoard();
 
-        Map<Double,PriceLevelDTO> priceToPriceLevel = orderBoard.getSellOrders().stream().collect(toMap(PriceLevelDTO::getPricePerKg, Function.identity()));
+        Map<Double,PriceLevelDTO> priceToPriceLevel = orderBoard.getSellLevels().stream().collect(toMap(PriceLevelDTO::getPricePerKg, Function.identity()));
 
         PriceLevelDTO dtoForPriceOfFive = priceToPriceLevel.get(5.0);
         Set<String> orderIdsForPriceOfFive = dtoForPriceOfFive.getOrderIds();
@@ -122,7 +159,7 @@ public class LiveOrderBoardServiceTest {
 
 
         PriceLevelDTO dtoForPriceOfOneAndAHalf = priceToPriceLevel.get(1.5);
-        Set<String> orderIdsForPriceOfOneAndAHalf= dtoForPriceOfFive.getOrderIds();
+        Set<String> orderIdsForPriceOfOneAndAHalf= dtoForPriceOfOneAndAHalf.getOrderIds();
 
         assertTrue(orderIdsForPriceOfOneAndAHalf.size() == 1);
         assertTrue(orderIdsForPriceOfOneAndAHalf.contains("orderId6"));
@@ -135,13 +172,15 @@ public class LiveOrderBoardServiceTest {
     @Test
     public void sellOrdersShouldBeSortedByPriceInAscendingOrder() {
         ILiveOrderBoardService orderBoardService = new LiveOrderBoardService(orderServiceMock);
-        assertThat(orderBoardService.getLiveOrderBoard().getSellOrders(),sellOrdersInAscendingOrder());
+        assertFalse(orderBoardService.getLiveOrderBoard().getSellLevels().isEmpty());
+        assertThat(orderBoardService.getLiveOrderBoard().getSellLevels(),sellOrdersInAscendingOrder());
     }
 
     @Test
     public void buyOrdersShouldBeSortedByPriceInDescendingOrder() {
         ILiveOrderBoardService orderBoardService = new LiveOrderBoardService(orderServiceMock);
-        assertThat(orderBoardService.getLiveOrderBoard().getSellOrders(),buyOrdersInDescendingOrder());
+        assertFalse(orderBoardService.getLiveOrderBoard().getBuyLevels().isEmpty());
+        assertThat(orderBoardService.getLiveOrderBoard().getBuyLevels(),buyOrdersInDescendingOrder());
     }
 
 }

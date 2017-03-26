@@ -1,11 +1,9 @@
 package com.zahari.liveorderboard.endpoint;
 
-import com.zahari.liveorderboard.domain.OrderDTO;
-import com.zahari.liveorderboard.repository.OrderEntityRepository;
+import com.zahari.liveorderboard.domain.dto.OrderDTO;
 import com.zahari.liveorderboard.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by zahari on 26/03/2017.

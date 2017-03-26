@@ -1,6 +1,5 @@
-package com.zahari.liveorderboard.domain;
+package com.zahari.liveorderboard.domain.dto;
 
-import java.util.List;
 import java.util.Set;
 
 /**
