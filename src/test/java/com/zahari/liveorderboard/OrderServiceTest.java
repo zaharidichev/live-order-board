@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -62,6 +63,30 @@ public class OrderServiceTest {
         assertTrue(foundOrder.getOrderId() != null);
     }
 
+
+    @Test
+    public void shouldBeAbleToFindByBuySide() {
+        OrderDTO buySideOrder = new OrderDTO(null,"dummyUserBuy",1.1,2.5, MarketSide.BUY);
+        OrderDTO sellSideOrder = new OrderDTO(null,"dummyUserSell",1.1,2.5, MarketSide.SELL);
+
+        OrderDTO createdBuyOrder = this.orderService.createOrder(buySideOrder);
+        this.orderService.createOrder(sellSideOrder);
+
+        assertTrue(this.orderService.getBuyOrders().collect(toSet()).contains(createdBuyOrder));
+        assertTrue(this.orderService.getBuyOrders().count() == 1);
+    }
+
+    @Test
+    public void shouldBeAbleToFindBySellSide() {
+        OrderDTO buySideOrder = new OrderDTO(null,"dummyUserBuy",1.1,2.5, MarketSide.BUY);
+        OrderDTO sellSideOrder = new OrderDTO(null,"dummyUserSell",1.1,2.5, MarketSide.SELL);
+
+        this.orderService.createOrder(buySideOrder);
+        OrderDTO createdSellOrder = this.orderService.createOrder(sellSideOrder);
+
+        assertTrue(this.orderService.getBuyOrders().collect(toSet()).contains(createdSellOrder));
+        assertTrue(this.orderService.getSellOrders().count() == 1);
+    }
 
     @Test(expected=OrderNotFoundException.class)
     public void tryingToObtainNonExistingOrderShouldThrowAnException() {

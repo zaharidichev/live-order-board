@@ -41,4 +41,14 @@ public class OrderService implements IOrderService{
     public Stream<OrderDTO> getAllOrders() {
         throw new NotImplementedException();
     }
+
+    @Override
+    public Stream<OrderDTO> getBuyOrders() {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public Stream<OrderDTO> getSellOrders() {
+        throw new NotImplementedException();
+    }
 }

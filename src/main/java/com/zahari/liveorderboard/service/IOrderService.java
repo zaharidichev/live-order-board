@@ -12,5 +12,8 @@ public interface IOrderService {
     void cancelOrder(String orderId);
     OrderDTO getOrder(String orderId);
     Stream<OrderDTO> getAllOrders();
+    Stream<OrderDTO> getBuyOrders();
+    Stream<OrderDTO> getSellOrders();
+
 
 }
