@@ -24,22 +24,29 @@ public class DefaultErrorHandler {
         return new ServerError(ex.getMessage(),"NOT_FOUND");
     }
 
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ExceptionHandler({ValidationException.class})
+    public ServerError handleException(ValidationException ex) {
+        logger.error(ex); // log it to sonsole for sure..
+        return new ServerError(ex.getMessage(),"NOT_ACCEPTABLE");
+    }
+
 
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler({LiveOrderBookServiceException.class})
     private ServerError handleException(LiveOrderBookServiceException ex) {
         logger.error(ex);
-        return new ServerError(ex.getMessage(),"SERVER_ERROR");
+        return new ServerError(ex.getMessage(),"INTERNAL_SERVER_ERROR");
     }
-
 
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler({Throwable.class})
     public ServerError handleException(Throwable ex) {
         logger.error(ex); // log it to sonsole for sure..
-        return new ServerError(ex.getMessage(),"SERVER_ERROR");
+        return new ServerError(ex.getMessage(),"INTERNAL_SERVER_ERROR");
     }
 
 

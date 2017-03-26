@@ -2,8 +2,12 @@ package com.zahari.liveorderboard.endpoint;
 
 import com.zahari.liveorderboard.domain.dto.OrderDTO;
 import com.zahari.liveorderboard.service.IOrderService;
+import com.zahari.liveorderboard.service.OrderDTOPostValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * Created by zahari on 26/03/2017.
@@ -21,6 +25,7 @@ public class OrderEndpoint {
 
     @RequestMapping(method = RequestMethod.POST)
     public OrderDTO createOrder(@RequestBody OrderDTO order) {
+        OrderDTOPostValidator.validate(order);
         return orderService.createOrder(order);
     }
 

@@ -5,6 +5,7 @@ package com.zahari.liveorderboard.domain.dto;
  */
 public class OrderDTO {
 
+
     private  String orderId;
     private  String userId;
     private  Double quantityInKg;
