@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ *
+ * Endpoint for obtaining the current live order book
+ *
  * Created by zahari on 26/03/2017.
  */
 @RestController

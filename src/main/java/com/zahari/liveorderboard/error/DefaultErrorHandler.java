@@ -1,14 +1,21 @@
 package com.zahari.liveorderboard.error;
 
 import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.apache.log4j.Logger;
 
 /**
+ *
+ * This error handler is responsible for
+ * mapping expections that have occured in the service
+ * to a pretty Json output, so the user is not presented
+ * with unclear stacktraces and no internals of the system
+ * are revealed
+ *
  * Created by zahari on 26/03/2017.
  */
 @ControllerAdvice

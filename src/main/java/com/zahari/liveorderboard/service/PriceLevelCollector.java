@@ -21,7 +21,7 @@ import static java.util.stream.Collectors.toSet;
  * A custom collecotor created for the purpose of
  * turning a stream of OrderDTO objects into a sorted
  * list of PriceLevelDTO ones. It uses a custom comparator
- * passed in the constructor, so we are capable of resuing
+ * passed in the constructor, so we are capable of reusing
  * logic for both Sell and Buy side order collection operations
  * as they need different sorting criteria
  *

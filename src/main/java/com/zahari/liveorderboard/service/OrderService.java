@@ -15,6 +15,10 @@ import static com.zahari.liveorderboard.mapper.DomainMapper.fromEntity;
 import static com.zahari.liveorderboard.mapper.DomainMapper.toEntity;
 
 /**
+ *
+ * Service which purpose is to manipulate orders
+ * in the database
+ *
  * Created by zahari on 26/03/2017.
  */
 @Service

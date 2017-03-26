@@ -4,6 +4,9 @@ import com.zahari.liveorderboard.domain.dto.OrderDTO;
 import com.zahari.liveorderboard.domain.entity.OrderEntity;
 
 /**
+ *
+ * Maps an entity to a dto and back
+ *
  * Created by zahari on 26/03/2017.
  */
 public class DomainMapper {
