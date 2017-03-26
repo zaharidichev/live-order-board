@@ -1,6 +1,9 @@
 package com.zahari.liveorderboard.endpoint;
 
 import com.zahari.liveorderboard.domain.OrderDTO;
+import com.zahari.liveorderboard.repository.OrderEntityRepository;
+import com.zahari.liveorderboard.service.IOrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -11,19 +14,26 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 @RequestMapping("/api/order")
 public class OrderEndpoint {
 
+    private IOrderService orderService;
+
+    @Autowired
+    public OrderEndpoint(IOrderService orderService) {
+        this.orderService = orderService;
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public OrderDTO createOrder(@RequestBody OrderDTO order) {
-        throw new NotImplementedException();
+        return orderService.createOrder(order);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public OrderDTO getOrder(@PathVariable("id") String id) {
-        throw new NotImplementedException();
+        return orderService.getOrder(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void cancelOrder(@PathVariable("id") String id) {
-        throw new NotImplementedException();
+        this.orderService.cancelOrder(id);
     }
 
 }
