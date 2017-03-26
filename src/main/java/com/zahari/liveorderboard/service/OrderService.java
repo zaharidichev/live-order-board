@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.stream.Stream;
+
 /**
  * Created by zahari on 26/03/2017.
  */
@@ -32,6 +34,11 @@ public class OrderService implements IOrderService{
 
     @Override
     public OrderDTO getOrder(String orderId) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public Stream<OrderDTO> getAllOrders() {
         throw new NotImplementedException();
     }
 }
